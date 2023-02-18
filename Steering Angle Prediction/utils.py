@@ -74,7 +74,9 @@ def preprocess_img(img, model_name):
         size = (80, 240)
 
     transform = transforms.Compose([
+        transforms.ToPILImage(),
         transforms.Resize(size),
+        transforms.ToTensor(),
         transforms.Lambda(lambda x: (x / 127.5) - 1),
     ])
     img = transform(img)

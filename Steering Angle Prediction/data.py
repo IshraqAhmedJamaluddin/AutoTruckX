@@ -64,8 +64,8 @@ class TruckDataset(Dataset):
             
             return torch.stack(left_imgs_batch), torch.stack(front_imgs_batch), torch.stack(right_imgs_batch), torch.stack(left_angles_batch), torch.stack(front_angles_batch), torch.stack(right_angles_batch)
 
-        name = self.img_names[index].split('\\center')[1]
-        front_name, left_name, right_name = os.path.join('data', 'IMG/center' + name), os.path.join('data', 'IMG/left' + name), os.path.join('data', 'IMG/right' + name)
+        name = self.img_names[index]
+        front_name, left_name, right_name = os.path.join('data', 'IMG/' + name), os.path.join('data', 'IMG/' + name), os.path.join('data', 'IMG/' + name)
         front_img, left_img, right_img = np.array(Image.open(front_name)), np.array(Image.open(left_name)), np.array(Image.open(right_name))
         front_angle, left_angle, right_angle = self.angles[index], self.angles[index] + 0.4, self.angles[index] - 0.4
 
@@ -87,8 +87,10 @@ class TruckDataset(Dataset):
             size = (80, 240)
 
         transform = transforms.Compose([
+            transforms.ToPILImage(),
             transforms.Resize(size),
             transforms.ColorJitter(brightness=0.2, contrast=0.2, saturation=0.2),
+            transforms.ToTensor(),
             transforms.Lambda(lambda x: (x / 127.5) - 1),
         ])
 
@@ -97,7 +99,9 @@ class TruckDataset(Dataset):
         # augmentation
         if np.random.rand() < 0.4:
             flip_transform = transforms.Compose([
-                transforms.RandomHorizontalFlip(p=1)
+                transforms.ToPILImage(),
+                transforms.RandomHorizontalFlip(p=1),
+                transforms.ToTensor()
             ])
             img = flip_transform(img)
             angle = angle * -1.0

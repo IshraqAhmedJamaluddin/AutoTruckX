@@ -29,7 +29,7 @@ def train(cont=False):
     def loadData():
         data = pd.read_csv(csv_src)
         X = data[data.columns[0]].values
-        y = data[data.columns[3]].values
+        y = data[data.columns[1]].values
 
         return X, y
 
@@ -57,7 +57,7 @@ def train(cont=False):
 
     # for continue training
     if cont:
-        model, optim, cur_epoch, best_mse = load_ckpt_continue_training(best_ckpt_src, model, optim, logger)
+        model, optim, cur_epoch, _ = load_ckpt_continue_training(best_ckpt_src, model, optim, logger)
         logger.info("Current best loss (mse): {0}".format(best_mse))
         with warnings.catch_warnings():
             warnings.simplefilter("ignore")

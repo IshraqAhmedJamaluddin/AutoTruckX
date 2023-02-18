@@ -6,9 +6,9 @@ img_dir = "./data/IMG"
 csv_src = "./data/record.csv"
 
 # target network
-# net = "TruckNN" 
+net = "TruckNN" 
 # net = "TruckRNN"
-net = "TruckResnet50"
+# net = "TruckResnet50"
 
 # training
 device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
@@ -36,8 +36,8 @@ ckpt_src = "./checkpoints/{0}/best_ckpt.pth".format(net)
 
 # inference
 best_ckpt_src = "./checkpoints/{0}/best_ckpt_1.pth".format(net)
-inf_img_src = "./data/inference/input/test.jpeg"
-inf_vid_src = "./data/inference/input/test.mp4"
+inf_img_src = "./data/inference/input/183.png"
+inf_vid_src = "./data/inference/input/output.mp4"
 inf_out_src = "./data/inference/output/output.txt"
 inf_out_img_src = "./data/inference/output/output.jpg"
 inf_out_vid_src = "./data/inference/output/output.avi"

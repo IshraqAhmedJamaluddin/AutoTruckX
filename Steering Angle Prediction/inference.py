@@ -134,7 +134,7 @@ if __name__ == "__main__":
     if net == "TruckRNN":
         inference_video_seq(model, logger)
     else:
-    # inference_image(model, logger)
+        inference_image(model, logger)
         inference_video(model, logger)
     
     
